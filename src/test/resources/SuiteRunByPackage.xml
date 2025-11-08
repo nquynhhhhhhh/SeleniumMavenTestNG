@@ -1,0 +1,16 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="SuiteRunByMethod" verbose="1">
+    <test name="FirstTest">
+        <packages>
+            <package name="com.nhuquynh.package_demo.package1"/>
+            <package name="com.nhuquynh.package_demo.package2"></package>
+
+<!--            C2-->
+<!--            <package name="com.nhuquynh.package_demo.*">-->
+<!--                <exclude name="com.nhuquynh.package_demo.package2"></exclude>-->
+<!--            </package>-->
+            
+        </packages>
+    </test>
+</suite>

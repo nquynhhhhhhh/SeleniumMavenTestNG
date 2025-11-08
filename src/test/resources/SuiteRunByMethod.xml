@@ -1,0 +1,21 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="SuiteRunByMethod" verbose="1">
+    <test name="FirstTest">
+        <classes>
+            <class name="com.nhuquynh.Bai9_TestNGFramework.DemoTestNG_02">
+                <methods>
+<!--                    <exclude name="testCreateCustomer"></exclude>-->
+                    <include name="testLoginCRM"/>
+                </methods>
+            </class>
+
+            <class name="com.nhuquynh.Bai9_TestNGFramework.DemoTestNG">
+                <methods>
+                    <include name="testAnhTesterBlog"/>
+                </methods>
+            </class>
+
+        </classes>
+    </test>
+</suite>
