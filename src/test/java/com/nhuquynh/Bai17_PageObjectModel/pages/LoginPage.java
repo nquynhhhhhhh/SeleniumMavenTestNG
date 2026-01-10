@@ -33,11 +33,20 @@ public class LoginPage {
     //Xây dựng hàm xử lý => hàm public, phải gọi sang chỗ khác dùng được, đảm nhiệm xử lý chức năng nội bộ của trang Login
 
     //C1: Đã có WebUI nên không cần khởi tạo hàm trung gian
+    public void loginCRM() { //chạy automation login, verify là 2 hàm trên
+        WebUI.openWebside("https://crm.anhtester.com/admin/authentication");
+        WebUI.setText(inputEmail, "admin@example.com");
+        WebUI.setText(inputPassword, "123456");
+        WebUI.clickElement(buttonLogin);
+        verifyLoginSuccess(); //khi login thì check luôn có succes kh
+    }
+
     public void loginCRM(String email, String password) { //chạy automation login, verify là 2 hàm trên
         WebUI.openWebside("https://crm.anhtester.com/admin/authentication");
         WebUI.setText(inputEmail, email);
         WebUI.setText(inputPassword, password);
         WebUI.clickElement(buttonLogin);
+        verifyLoginSuccess(); //khi login thì check luôn có succes kh
     }
 
     public void verifyLoginSuccess() {
