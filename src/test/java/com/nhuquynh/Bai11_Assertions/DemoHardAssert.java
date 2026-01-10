@@ -11,8 +11,8 @@ public class DemoHardAssert extends BaseTest {
     public void testLoginSucces() throws InterruptedException {
         driver.get("https://crm.anhtester.com/admin/authentication");
         //Kiểm tra đối tượng header và giá trị header
-        Assert.assertTrue(driver.findElement(By.xpath(Locators.headerLogin)).isDisplayed(), "Giá trị Login page không hiển thị");
-        Assert.assertEquals(driver.findElement(By.xpath(Locators.headerLogin)).getText(), "Login", "Giá trị header không đúng");
+        Assert.assertTrue(driver.findElement(By.xpath(Locators.headerLogin)).isDisplayed(), "Giá trị LoginTest page không hiển thị");
+        Assert.assertEquals(driver.findElement(By.xpath(Locators.headerLogin)).getText(), "LoginTest", "Giá trị header không đúng");
 
         driver.findElement(By.xpath(Locators.inputEmail)).sendKeys("admin@example.com");
         driver.findElement(By.xpath(Locators.inputPassword)).sendKeys("123456");

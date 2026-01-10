@@ -5,7 +5,7 @@ import org.testng.annotations.Test;
 public class DemoTestNG_02 {
     @Test
     public void testLoginCRM(){
-        System.out.println("Test Login success CRM");
+        System.out.println("Test LoginTest success CRM");
     }
 
     @Test

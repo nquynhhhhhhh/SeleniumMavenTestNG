@@ -2,11 +2,11 @@ package com.nhuquynh.Common;
 
 public class Locators {
 
-        //Login page
-        public static String headerLogin = "//h1[normalize-space()='Login']";
+        //LoginTest page
+        public static String headerLogin = "//h1[normalize-space()='LoginTest']";
         public static String inputEmail = "//input[@id='email']";
         public static String inputPassword = "//input[@id='password']";
-        public static String buttonLogin = "//button[normalize-space()='Login']";
+        public static String buttonLogin = "//button[normalize-space()='LoginTest']";
         public static String checkboxRememberMe = "//input[@id='remember']";
         public static String linkForgotPassword = "//a[normalize-space()='Forgot Password?']";
         public static String alertErrorMessage = "//div[@id='alerts']/div";
@@ -38,6 +38,7 @@ public class Locators {
         public static String inputPhoneNumber = "//input[@id='phonenumber']";
         public static String inputWebsite = "//input[@id='website']";
         public static String dropdownGroup = "//button[@data-id='groups_in[]']";
+        public static String labelGroup = "//label[normalize-space()='Groups']";
         public static String addGroup = "//div[@class='input-group-btn']";
         public static String inputSearchGroup = "//button[@data-id='groups_in[]']/following-sibling::div//input";
         public static String itemVIP = "//button[@data-id='groups_in[]']/following-sibling::div//span[normalize-space()='VIP']";

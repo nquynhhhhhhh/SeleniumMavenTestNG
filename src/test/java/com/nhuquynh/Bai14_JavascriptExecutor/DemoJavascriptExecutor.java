@@ -82,7 +82,7 @@ public class DemoJavascriptExecutor extends BaseTest {
         js.executeScript("arguments[0].style.border='3px solid red'", inputPassword);
         inputPassword.sendKeys("123456");
         Thread.sleep(1000);
-        WebElement buttonLogin = driver.findElement(By.xpath("//button[normalize-space()='Login']"));
+        WebElement buttonLogin = driver.findElement(By.xpath("//button[normalize-space()='LoginTest']"));
         js.executeScript("arguments[0].style.border='3px solid red'", buttonLogin);
         inputEmail.click();
 

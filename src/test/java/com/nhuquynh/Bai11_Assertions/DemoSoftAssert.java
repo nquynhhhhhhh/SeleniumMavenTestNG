@@ -14,7 +14,7 @@ public class DemoSoftAssert extends BaseTest {
 
         driver.get("https://crm.anhtester.com/admin/authentication");
         //Kiểm tra đối tượng header và giá trị header
-        Assert.assertTrue(driver.findElement(By.xpath(Locators.headerLogin)).isDisplayed(), "Giá trị Login page không hiển thị");
+        Assert.assertTrue(driver.findElement(By.xpath(Locators.headerLogin)).isDisplayed(), "Giá trị LoginTest page không hiển thị");
         softAssert.assertEquals(driver.findElement(By.xpath(Locators.headerLogin)).getText(), "Login123", "Giá trị header không đúng");
         //Assert.assertEquals(driver.findElement(By.xpath(Locators.headerLogin)).getText(), "Login123", "Giá trị header không đúng");
         //=> nếu dùng Hard => dừng luôn kh check những cái sau
