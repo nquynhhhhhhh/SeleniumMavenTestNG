@@ -1,9 +1,13 @@
-package com.nhuquynh.Bai17_PageObjectModel.pages;
+package com.nhuquynh.Bai18_PageFactory.pages;
 
 import com.nhuquynh.Common.Locators;
 import com.nhuquynh.keywords.WebUI;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
+import org.openqa.selenium.support.FindAll;
+import org.openqa.selenium.support.FindBy;
+import org.openqa.selenium.support.PageFactory;
 import org.testng.Assert;
 
 import java.util.ArrayList;
@@ -18,62 +22,98 @@ public class LoginPage {
     public LoginPage(WebDriver driver) {
         this.driver = driver; //=> driver ở trong class này (dòng 11) mới nhận driver từ bên ngoài
         new WebUI(driver); //khởi tạo giá trị driver cho class WebUI
+        PageFactory.initElements(driver,this);
     }
 
     //Khai báo các element dạng đối tượng By (phương thức tìm kiếm)
-    private By headerPage = By.xpath("//h1[normalize-space()='Login']");
-    private By inputEmail = By.xpath("//input[@id='email']");
-    private By inputPassword = By.xpath("//input[@id='password']");
-    private By buttonLogin = By.xpath("//button[normalize-space()='Login']");
-    private By errorMessage = By.xpath("//div[contains(@class,'alert-danger')]");
-    private By errorMessage1 = By.xpath("(//div[contains(@class,'alert-danger')])[1]");
-    private By errorMessage2 = By.xpath("(//div[contains(@class,'alert-danger')])[2]");
+//    private By headerPage = By.xpath("//h1[normalize-space()='Login']");
+//    private By inputEmail = By.xpath("//input[@id='email']");
+//    private By inputPassword = By.xpath("//input[@id='password']");
+//    private By buttonLogin = By.xpath("//button[normalize-space()='Login']");
+//    private By errorMessage = By.xpath("//div[contains(@class,'alert-danger')]");
+//    private By errorMessage1 = By.xpath("(//div[contains(@class,'alert-danger')])[1]");
+//    private By errorMessage2 = By.xpath("(//div[contains(@class,'alert-danger')])[2]");
 
+    @FindBy(xpath = "//h1[normalize-space()='Login']")
+    private WebElement headerPage;
+
+    @FindBy(xpath = "//input[@id='email']")
+    private WebElement inputEmail;
+
+    @FindBy(xpath = "//input[@id='password']")
+    private WebElement inputPassword;
+
+//    @FindBy(xpath = "//button[normalize-space()='Login']")
+//    private WebElement buttonLogin;
+
+    @FindAll({
+            @FindBy(id = "Login123"),
+            @FindBy(className = "btn-primary123"),
+            @FindBy(xpath = "//button[normalize-space()='Login']"),
+    })
+    private WebElement buttonLogin;
+
+    @FindBy(xpath = "//div[contains(@class,'alert-danger')]")
+    private WebElement errorMessage;
+
+    @FindBy(xpath = "(//div[contains(@class,'alert-danger')])[1]")
+    private WebElement errorMessage1;
+
+    @FindBy(xpath = "(//div[contains(@class,'alert-danger')])[2]")
+    private WebElement errorMessage2;
 
     //Xây dựng hàm xử lý => hàm public, phải gọi sang chỗ khác dùng được, đảm nhiệm xử lý chức năng nội bộ của trang Login
 
     //C1: Đã có WebUI nên không cần khởi tạo hàm trung gian
     //chạy hàm automation login (dùng chung ở toàn bộ TC)
-    public void loginCRM() {
+    public void loginCRM(String email, String password) { //chạy automation login
         WebUI.openWebside("https://crm.anhtester.com/admin/authentication");
-        WebUI.setText(inputEmail, "admin@example.com");
-        WebUI.setText(inputPassword, "123456");
-        WebUI.clickElement(buttonLogin);
-        verifyLoginSuccess(); //khi login thì check luôn có succes kh
+        //WebUI.setText(inputEmail, email);
+        inputEmail.sendKeys(email);
+        //WebUI.setText(inputPassword, password);
+        inputPassword.sendKeys(password);
+        //WebUI.clickElement(buttonLogin);
+        buttonLogin.click();
+        //tự truyền email và password để check case fail nên kh cần verify login success như hàm dưới
     }
 
-    public void loginCRM(String email, String password) { //chạy automation login, verify là 2 hàm trên
+    public void loginCRM() { //chạy automation login
         WebUI.openWebside("https://crm.anhtester.com/admin/authentication");
-        WebUI.setText(inputEmail, email);
-        WebUI.setText(inputPassword, password);
-        WebUI.clickElement(buttonLogin);
+        //WebUI.setText(inputEmail, email);
+        inputEmail.sendKeys("admin@example.com");
+        //WebUI.setText(inputPassword, password);
+        inputPassword.sendKeys("123456");
+        //WebUI.clickElement(buttonLogin);
+        buttonLogin.click();
+        verifyLoginSuccess(); //khi login thì check luôn có succes kh
     }
 
     //hàm verify (dùng ở từng TC riêng)
     public void verifyLoginSuccess() {
-        Assert.assertEquals(driver.findElement(By.xpath(Locators.menuDashboard)).getText(), "Dashboard", "FAIL. Vẫn đang ở trang Login");
         Assert.assertFalse(driver.getCurrentUrl().contains("authentication"), "FAIL. Vẫn đang ở trang Login");
     }
 
     public void verifyLoginFail() { //đã truyền text r nên gọi hàm kh cần truyền text nữa nhưng chỉ sử dụng được 1 TH
         Assert.assertTrue(driver.getCurrentUrl().contains("authentication"), "FAIL. Không còn ở trang Login");
-        Assert.assertTrue(driver.findElement(errorMessage).isDisplayed(), "Error message NOT displays");
-        Assert.assertEquals(driver.findElement(errorMessage).getText(), "Invalid email or password", "Content of error massage NOT match.");
+        //Assert.assertTrue(driver.findElement(errorMessage).isDisplayed(), "Error message NOT displays");
+        Assert.assertTrue(errorMessage.isDisplayed(), "Error message NOT displays");
+        //Assert.assertEquals(driver.findElement(errorMessage).getText(), "Invalid email or password", "Content of error massage NOT match.");
+        Assert.assertEquals(errorMessage.getText(), "Invalid email or password", "Content of error massage NOT match.");
     }
     //giống cái trên => tính đa hình
     public void verifyLoginFail(String message) { //khi gọi hàm phải truyền text nhưng sử dụng được nhiều TH
         Assert.assertTrue(driver.getCurrentUrl().contains("authentication"), "FAIL. Không còn ở trang Login");
-        Assert.assertTrue(driver.findElement(errorMessage).isDisplayed(), "Error message NOT displays");
-        Assert.assertEquals(driver.findElement(errorMessage).getText(), message, "Content of error massage NOT match.");
+        Assert.assertTrue(errorMessage.isDisplayed(), "Error message NOT displays");
+        Assert.assertEquals(errorMessage.getText(), message, "Content of error massage NOT match.");
     }
 
     public void verifyLoginFailWithNullFields() {
         Assert.assertTrue(driver.getCurrentUrl().contains("authentication"), "FAIL. Không còn ở trang Login");
-        Assert.assertTrue(driver.findElement(errorMessage1).isDisplayed(), "Error message 1 NOT displays");
-        Assert.assertTrue(driver.findElement(errorMessage2).isDisplayed(), "Error message 2 NOT displays");
+        Assert.assertTrue(errorMessage1.isDisplayed(), "Error message 1 NOT displays");
+        Assert.assertTrue(errorMessage2.isDisplayed(), "Error message 2 NOT displays");
 
-        Assert.assertEquals(WebUI.getTextElement(errorMessage1), "The Password field is required.", "Content of error massage 1 NOT match.");
-        Assert.assertEquals(WebUI.getTextElement(errorMessage2), "The Email Address field is required.", "Content of error massage 2 NOT match.");
+        Assert.assertEquals(errorMessage1.getText(), "The Password field is required.", "Content of error massage 1 NOT match.");
+        Assert.assertEquals(errorMessage2.getText(), "The Email Address field is required.", "Content of error massage 2 NOT match.");
     }
 
 
@@ -102,20 +142,17 @@ public class LoginPage {
     //khi i=1 => compare với error message 1 => OK => break
     //khi i=2 => compare với error message 1 => NG => compare với error message 2 => OK
 
-
-
-
 }
 
 //CÁCH 2: khai báo hàm trung gian (TRONG TH KHÔNG CÓ HÀM CHUNG WEBUI)
 //    private void setEmail(String email) {
-//        driver.findElement(inputEmail).sendKeys(email);
+//        inputEmail.sendKeys(email);
 //    }
 //    private void setPassword(String password) {
-//        driver.findElement(inputPassword).sendKeys(password);
+//        inputPassword.sendKeys(password);
 //    }
 //    private void clickLoginButton() {
-//        driver.findElement(buttonLogin).click();
+//        buttonLogin.click();
 //    }
 
 //    public void loginCRM(String email, String password) { //khai báo hàm trung gian

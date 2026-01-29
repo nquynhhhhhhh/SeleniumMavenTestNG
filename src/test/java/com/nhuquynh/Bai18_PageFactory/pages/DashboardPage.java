@@ -1,8 +1,7 @@
-package com.nhuquynh.Bai17_PageObjectModel.pages;
+package com.nhuquynh.Bai18_PageFactory.pages;
 
 import com.nhuquynh.Common.Locators;
 import com.nhuquynh.keywords.WebUI;
-import org.checkerframework.checker.units.qual.A;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.testng.Assert;
