@@ -2,6 +2,7 @@ package com.nhuquynh.keywords;
 
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.xml.sax.Locator;
@@ -21,6 +22,14 @@ public class WebUI {
         //driver lấy từ base test, khi viết hàm sử dụng phải truyền driver vào hàm xây dựng trên để hàm sử dụng biết nên lấy driver từ đâu
     }
 
+    public static void sleep(double second){
+        try {
+            Thread.sleep((long) (1000*second));
+        } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
     public static void openWebside(String url) {
         System.out.println("Open Webside: " + url);
         driver.get("https://crm.anhtester.com/admin/authentication");
@@ -28,15 +37,18 @@ public class WebUI {
 
     public static void clickElement(By by) { //thay thế nguyên cụm cụ thể By.xpath(Locators.inputEmail) = đối tượng by
         System.out.println("Click on element: " + by);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.elementToBeClickable(by)); //sẵn sàng có thể click
         driver.findElement(by).click();
     }
 
     public static void setText(By by, String text) {
+    //public static void setText(WebElement by, String text)
         System.out.println("Set text: " + text + " on element " + by);
-        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+        WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(10));
         wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+        //wait.until(ExpectedConditions.visibilityOf(by)); //NẾU DÙNG ĐỐI TƯỢNG WebElement
+        //=> Từ WebElement => By dễ hơn => wait.until(ExpectedConditions.visibilityOf(driver.findElement(by)));
         driver.findElement(by).sendKeys(text);
 
     }

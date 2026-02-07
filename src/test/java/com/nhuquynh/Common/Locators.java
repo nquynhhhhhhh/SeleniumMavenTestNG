@@ -18,8 +18,8 @@ public class Locators {
         public static String menuProjects = "//span[normalize-space()='Projects']";
         public static String menuSales = "//span[@class='menu-text' and normalize-space()='Sales']";
         public static String menuProposals = "//span[normalize-space()='Proposals']";
-
         public static String iconProfile = "//li[@class='icon header-user-profile']";
+
         public static String totalInvoicesAwaitingPayment = "(//span[normalize-space()='Invoices Awaiting Payment']/parent::div)/following-sibling::span";
         public static String totalConvertedLeads = "(//span[normalize-space()='Converted Leads']/parent::div)/following-sibling::span";
         public static String totalProjectsInProgress = "(//span[normalize-space()='Projects In Progress']/parent::div)/following-sibling::span";

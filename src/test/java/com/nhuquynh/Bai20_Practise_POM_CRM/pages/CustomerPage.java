@@ -1,0 +1,133 @@
+package com.nhuquynh.Bai20_Practise_POM_CRM.pages;
+
+import com.nhuquynh.Common.Locators;
+import com.nhuquynh.keywords.WebUI;
+import org.openqa.selenium.*;
+import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.WebDriverWait;
+import org.testng.Assert;
+
+import java.time.Duration;
+
+public class CustomerPage extends BasePage{
+    private WebDriver driver;
+
+    public CustomerPage(WebDriver driver) {
+        super(driver);
+        this.driver = driver;
+        new WebUI(driver);
+    }
+
+    private By headerCustomerPage = By.xpath("//span[normalize-space()='Customers Summary']");
+    private By buttonAddNewCustomer = By.xpath("//a[normalize-space()='New Customer']");
+    private By buttonImportCustomers = By.xpath("//a[normalize-space()='Import Customers']");
+    private By inputSearchCustomer = By.xpath("//div[@id='clients_filter']//input[@type='search']");
+    private By tabCustomerDetails = By.xpath("//a[normalize-space()='Customer Details']/preceding::hi4");
+
+    private By inputCompany = By.xpath("//input[@id='company']");
+    private By inputVAT = By.xpath("//input[@id='vat']");
+    private By inputPhoneNumber = By.xpath("//input[@id='phonenumber']");
+    private By inputWebsite = By.xpath("//input[@id='website']");
+    private By dropdownGroup = By.xpath("//button[@data-id='groups_in[]']");
+    private By labelGroup = By.xpath("//label[normalize-space()='Groups']");
+    private By addGroup = By.xpath("//div[@class='input-group-btn']");
+    private By inputSearchGroup = By.xpath("//button[@data-id='groups_in[]']/following-sibling::div//input");
+    private By itemVIP = By.xpath("//button[@data-id='groups_in[]']/following-sibling::div//span[normalize-space()='VIP']");
+    private By dropdownCurrency = By.xpath("//button[@data-id='default_currency']");
+    private By inputSearchCurrency = By.xpath("//button[@data-id='default_currency']/following-sibling::div//input");
+    private By notFoundCurrency = By.xpath("//button[@data-id='default_currency']/following-sibling::div//li[@class='no-results']");
+    private By itemUSD = By.xpath("//button[@data-id='default_currency']/following-sibling::div//span[contains(normalize-space(),'USD')]");
+    private By dropdownLanguage = By.xpath("//button[@data-id='default_language']");
+    private By itemVietnamese = By.xpath("//span[normalize-space()='Vietnamese']");
+    private By inputAddress = By.xpath("//textarea[@id='address']");
+    private By inputCity = By.xpath("//input[@id='city']");
+    private By inputState = By.xpath("//input[@id='state']");
+    private By inputZip = By.xpath("//input[@id='zip']");
+    private By dropdownCountry = By.xpath("//button[@data-id='country']");
+    private By inputSearchCountry = By.xpath("//button[@data-id='country']/following-sibling::div//input");
+    private By itemVietnamCountry = By.xpath("//button[@data-id='country']/following-sibling::div//span[normalize-space()='Vietnam']");
+    private By buttonSaveAndCreate = By.xpath("//button[normalize-space()='Save and create contact']");
+    private By buttonSave = By.xpath("//div[@id='profile-save-section']//button[normalize-space()='Save']");
+    private By errorCompany = By.xpath("//p[@id='company-error']");
+    private By itemCustomerFirst = By.xpath("//table[@id='clients']/tbody/tr[1]/td[3]/a");
+    private By headerCustomerDetailPage = By.xpath("//h4[normalize-space()='Profile']");
+
+    private boolean checkElementExist(By by){
+        try {
+            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
+            wait.until(ExpectedConditions.visibilityOfElementLocated(by));
+            //driver.findElement(headerCustomerPage).isDisplayed(); //TH kh dùng wait thì 1 dòng này đc rồi
+            return true;
+        }catch (NoSuchElementException e){
+            return false; //trả false chứ đừng bắn lỗi hệ thống (test case failed)
+        }
+    }
+
+    public void verifyNavigateToCustomerPage(){
+        Assert.assertTrue(checkElementExist(headerCustomerPage),"The customer header page not dissplay.");
+        Assert.assertEquals(WebUI.getTextElement(headerCustomerPage),"Customers Summary", "The cusomer header page not match");
+    }
+
+    public void clickButtonAddNewCustomer(){
+        WebUI.clickElement(buttonAddNewCustomer);
+    }
+
+    public void submitDataForNewCustomer(String customerName){
+        WebUI.setText(inputCompany, customerName);
+        WebUI.setText(inputVAT, "10");
+        WebUI.setText(inputPhoneNumber,"028yyzzxxx");
+        WebUI.setText(inputWebsite,"vinhtuong.com.vn");
+
+        JavascriptExecutor js = (JavascriptExecutor) driver;
+        WebElement element = driver.findElement(labelGroup);
+        js.executeScript("arguments[0].scrollIntoView(true);", element);
+        WebUI.clickElement(dropdownGroup);
+        WebUI.setText(inputSearchGroup,"VIP");
+        WebUI.clickElement(itemVIP);
+        WebUI.clickElement(dropdownGroup);
+
+        WebUI.sleep(1);
+        WebUI.clickElement(dropdownLanguage);
+        WebUI.clickElement(itemVietnamese);
+        WebUI.clickElement(dropdownLanguage);
+
+        WebUI.sleep(1);
+        WebUI.setText(inputAddress,"HCM");
+        WebUI.setText(inputCity,"HCM");
+        WebUI.setText(inputState,"Q1");
+        WebUI.setText(inputZip,"7000");
+
+        WebUI.sleep(1);
+        WebUI.clickElement(dropdownCountry);
+        WebUI.setText(inputSearchCountry,"Vietnam");
+        WebUI.clickElement(itemVietnamCountry);
+        WebUI.clickElement(buttonSave);
+        WebUI.sleep(1);
+
+    }
+
+    public void verifyNavigateToCustomerDetailPage(){
+        Assert.assertTrue(checkElementExist(headerCustomerDetailPage),"The customer detail header page not dissplay.");
+        Assert.assertEquals(WebUI.getTextElement(headerCustomerDetailPage),"Profile", "The cusomer detail header page not match");
+    }
+
+    public void verifyAddNewCustomerSuccess(String customerName){
+    //verify data
+        Assert.assertEquals(driver.findElement(inputCompany).getAttribute("value"),customerName,"The Company Name not match");
+        Assert.assertEquals(driver.findElement(inputVAT).getAttribute("value"),"10","The VAT value not match");
+        Assert.assertEquals(driver.findElement(inputPhoneNumber).getAttribute("value"),"028yyzzxxx","The Phone Number not match");
+        Assert.assertEquals(driver.findElement(inputWebsite).getAttribute("value"),"vinhtuong.com.vn","The Webside not match");
+        Assert.assertEquals(driver.findElement(dropdownGroup).getAttribute("title"),"VIP","The Group not match");
+
+    }
+
+    public void searchAndCheckCustomerInTable(){
+
+    }
+
+    public void verifyCustomerDetail(){
+
+    }
+
+
+}

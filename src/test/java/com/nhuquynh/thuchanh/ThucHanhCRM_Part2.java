@@ -81,7 +81,6 @@ public class ThucHanhCRM_Part2 extends BaseTest {
 
         //Check data đã add đúng hết chưa
         WebUI.clickElement(By.xpath(Locators.itemCustomerFirst));
-
         Assert.assertEquals(driver.findElement(By.xpath(Locators.inputCompany)).getAttribute("value"),"CTy Vĩnh Tường 2025","The Company Name not match");
         Assert.assertEquals(driver.findElement(By.xpath(Locators.inputVAT)).getAttribute("value"),"10","The VAT value not match");
         Assert.assertEquals(driver.findElement(By.xpath(Locators.inputPhoneNumber)).getAttribute("value"),"028yyzzxxx","The Phone Number not match");
