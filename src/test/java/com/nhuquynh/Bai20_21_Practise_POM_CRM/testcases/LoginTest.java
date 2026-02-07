@@ -1,6 +1,6 @@
-package com.nhuquynh.Bai20_Practise_POM_CRM.testcases;
+package com.nhuquynh.Bai20_21_Practise_POM_CRM.testcases;
 
-import com.nhuquynh.Bai20_Practise_POM_CRM.pages.LoginPage;
+import com.nhuquynh.Bai20_21_Practise_POM_CRM.pages.LoginPage;
 import com.nhuquynh.Common.BaseTest;
 import org.testng.annotations.Test;
 

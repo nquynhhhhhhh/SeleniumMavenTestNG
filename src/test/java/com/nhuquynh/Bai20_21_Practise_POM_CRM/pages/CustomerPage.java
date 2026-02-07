@@ -1,6 +1,5 @@
-package com.nhuquynh.Bai20_Practise_POM_CRM.pages;
+package com.nhuquynh.Bai20_21_Practise_POM_CRM.pages;
 
-import com.nhuquynh.Common.Locators;
 import com.nhuquynh.keywords.WebUI;
 import org.openqa.selenium.*;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -18,6 +17,7 @@ public class CustomerPage extends BasePage{
         new WebUI(driver);
     }
 
+    private By menuCustomers = By.xpath("//span[normalize-space()='Customers']");
     private By headerCustomerPage = By.xpath("//span[normalize-space()='Customers Summary']");
     private By buttonAddNewCustomer = By.xpath("//a[normalize-space()='New Customer']");
     private By buttonImportCustomers = By.xpath("//a[normalize-space()='Import Customers']");
@@ -51,6 +51,9 @@ public class CustomerPage extends BasePage{
     private By errorCompany = By.xpath("//p[@id='company-error']");
     private By itemCustomerFirst = By.xpath("//table[@id='clients']/tbody/tr[1]/td[3]/a");
     private By headerCustomerDetailPage = By.xpath("//h4[normalize-space()='Profile']");
+    //4 total in customer list
+    private By totalCustomers = By.xpath("//span[normalize-space()='Total Customers']/preceding-sibling::span");
+
 
     private boolean checkElementExist(By by){
         try {
@@ -112,7 +115,9 @@ public class CustomerPage extends BasePage{
     }
 
     public void verifyAddNewCustomerSuccess(String customerName){
-    //verify data
+        //verify alert message
+
+        //verify data
         Assert.assertEquals(driver.findElement(inputCompany).getAttribute("value"),customerName,"The Company Name not match");
         Assert.assertEquals(driver.findElement(inputVAT).getAttribute("value"),"10","The VAT value not match");
         Assert.assertEquals(driver.findElement(inputPhoneNumber).getAttribute("value"),"028yyzzxxx","The Phone Number not match");
@@ -121,13 +126,25 @@ public class CustomerPage extends BasePage{
 
     }
 
-    public void searchAndCheckCustomerInTable(){
-
+    public void searchAndCheckCustomerInTable(String customerName){
+        clickMenuCustomer();
+        WebUI.setText(inputSearchCustomer,customerName);
+        WebUI.sleep(2);
+        String customerNameInTable = WebUI.getTextElement(itemCustomerFirst);
+        System.out.println(customerNameInTable);
+        Assert.assertEquals(customerNameInTable,customerName,"The customer name in table not match");
     }
 
-    public void verifyCustomerDetail(){
-
+    public void clickFirstItemCustomer(){
+        WebUI.clickElement(itemCustomerFirst);
     }
+
+    public int getCustomersTotal(){
+        String totalString = driver.findElement(totalCustomers).getText();
+        System.out.println("getCustomersTotal: " + totalString);
+        return Integer.parseInt(totalString);
+    }
+
 
 
 }

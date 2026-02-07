@@ -88,10 +88,10 @@ public class LoginPage {
 
         boolean check = false;
 
-        //for ngoài là số lượng error message
+        //for ngoài là số lượng error message (dùng để duyệt tất cả element trả ra)
         for (int i = 1; i <= totalNullFields; i++) { //Biến i được dùng để xây dựng chuỗi XPath (dưới)=> mà XPath, chỉ mục (index) của các phần tử bắt đầu từ 1
             Assert.assertTrue(driver.findElement(By.xpath("(//div[contains(@class,'alert-danger')])[" + i + "]")).isDisplayed(), "Error message " + i + " NOT displays");
-            //for trong là số lượng message mình compare
+            //for trong là số lượng message mình compare (dùng để compare giá trị trong ArrayList)
             for (int j = 0; j < messageString.size(); j ++) {
                 if(WebUI.getTextElement(By.xpath("(//div[contains(@class,'alert-danger')])[" + i + "]")).equals(messageString.get(j))){
                     check = true;

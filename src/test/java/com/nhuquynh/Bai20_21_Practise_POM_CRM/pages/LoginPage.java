@@ -1,6 +1,5 @@
-package com.nhuquynh.Bai20_Practise_POM_CRM.pages;
+package com.nhuquynh.Bai20_21_Practise_POM_CRM.pages;
 
-import com.nhuquynh.Bai20_Practise_POM_CRM.pages.DashboardPage;
 import com.nhuquynh.Common.Locators;
 import com.nhuquynh.keywords.WebUI;
 import org.openqa.selenium.By;
