@@ -6,12 +6,8 @@ import com.nhuquynh.keywords.WebUI;
 import org.openqa.selenium.By;
 import org.openqa.selenium.JavascriptExecutor;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
-import org.openqa.selenium.support.ui.WebDriverWait;
 import org.testng.Assert;
 import org.testng.annotations.Test;
-
-import java.time.Duration;
 
 
 public class ThucHanhCRM_Part2 extends BaseTest {
@@ -38,7 +34,7 @@ public class ThucHanhCRM_Part2 extends BaseTest {
         WebUI.clickElement(By.xpath(Locators.buttonLogin));
 
         WebUI.clickElement(By.xpath(Locators.menuCustomers));
-        System.out.println(WebUI.getTextElement(By.xpath("//span[normalize-space()='Customers Summary']")));
+        System.out.println(WebUI.getElementText(By.xpath("//span[normalize-space()='Customers Summary']")));
         WebUI.clickElement(By.xpath(Locators.buttonAddNewCustomer));
         WebUI.setText(By.xpath(Locators.inputCompany),"CTy Vĩnh Tường 2025");
         WebUI.setText(By.xpath(Locators.inputVAT),"10");
@@ -76,8 +72,8 @@ public class ThucHanhCRM_Part2 extends BaseTest {
         Thread.sleep(2000); //đợi trả ra kết quả sau đó mới chờ nó xuất hiện
 
         WebUI.waitForElementVisible(By.xpath(Locators.itemCustomerFirst)); //thay cho isDisplay
-        Assert.assertEquals(WebUI.getTextElement(By.xpath(Locators.itemCustomerFirst)),"CTy Vĩnh Tường 2025");
-        System.out.println("Customer in List: " + WebUI.getTextElement(By.xpath(Locators.itemCustomerFirst)));
+        Assert.assertEquals(WebUI.getElementText(By.xpath(Locators.itemCustomerFirst)),"CTy Vĩnh Tường 2025");
+        System.out.println("Customer in List: " + WebUI.getElementText(By.xpath(Locators.itemCustomerFirst)));
 
         //Check data đã add đúng hết chưa
         WebUI.clickElement(By.xpath(Locators.itemCustomerFirst));

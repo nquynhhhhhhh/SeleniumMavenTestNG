@@ -1,6 +1,5 @@
 package com.nhuquynh.Bai18_PageFactory.pages;
 
-import com.nhuquynh.Common.Locators;
 import com.nhuquynh.keywords.WebUI;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
@@ -67,7 +66,7 @@ public class LoginPage {
     //C1: Đã có WebUI nên không cần khởi tạo hàm trung gian
     //chạy hàm automation login (dùng chung ở toàn bộ TC)
     public void loginCRM(String email, String password) throws InterruptedException { //chạy automation login
-        WebUI.openWebside("https://crm.anhtester.com/admin/authentication");
+        WebUI.openURL("https://crm.anhtester.com/admin/authentication");
         //WebUI.setText(inputEmail, email);
         inputEmail.sendKeys(email);
         //WebUI.setText(inputPassword, password);
@@ -79,7 +78,7 @@ public class LoginPage {
     }
 
     public void loginCRM() { //chạy automation login
-        WebUI.openWebside("https://crm.anhtester.com/admin/authentication");
+        WebUI.openURL("https://crm.anhtester.com/admin/authentication");
         //WebUI.setText(inputEmail, email);
         inputEmail.sendKeys("admin@example.com");
         //WebUI.setText(inputPassword, password);
@@ -131,7 +130,7 @@ public class LoginPage {
             Assert.assertTrue(driver.findElement(By.xpath("(//div[contains(@class,'alert-danger')])[" + i + "]")).isDisplayed(), "Error message " + i + " NOT displays");
             //for trong là số lượng message mình compare
             for (int j = 0; j < messageString.size(); j ++) {
-                if(WebUI.getTextElement(By.xpath("(//div[contains(@class,'alert-danger')])[" + i + "]")).equals(messageString.get(j))){
+                if(WebUI.getElementText(By.xpath("(//div[contains(@class,'alert-danger')])[" + i + "]")).equals(messageString.get(j))){
                     check = true;
                     break;
                 }

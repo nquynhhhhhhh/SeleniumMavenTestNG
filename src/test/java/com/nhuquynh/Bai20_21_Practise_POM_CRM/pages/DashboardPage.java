@@ -21,7 +21,7 @@ public class DashboardPage extends BasePage{
     public void verifyInvoicesAwaitingPayment(String total){
         //lúc nào cũng phải check tồn tại trc
         Assert.assertTrue(driver.findElement(totalInvoicesAwaitingPayment).isDisplayed(),"The Invoices Awaiting Payment total label not match");
-        Assert.assertEquals(WebUI.getTextElement(totalInvoicesAwaitingPayment), total, "The Invoices Awaiting Payment total not match");
+        Assert.assertEquals(WebUI.getElementText(totalInvoicesAwaitingPayment), total, "The Invoices Awaiting Payment total not match");
     }
 
 

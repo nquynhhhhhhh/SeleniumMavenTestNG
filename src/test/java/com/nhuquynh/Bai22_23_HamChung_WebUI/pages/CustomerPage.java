@@ -1,4 +1,4 @@
-package com.nhuquynh.Bai20_21_Practise_POM_CRM.pages;
+package com.nhuquynh.Bai22_23_HamChung_WebUI.pages;
 
 import com.nhuquynh.keywords.WebUI;
 import org.openqa.selenium.*;
@@ -8,7 +8,7 @@ import org.testng.Assert;
 
 import java.time.Duration;
 
-public class CustomerPage extends BasePage{
+public class CustomerPage extends BasePage {
     private WebDriver driver;
 
     public CustomerPage(WebDriver driver) {
@@ -55,19 +55,8 @@ public class CustomerPage extends BasePage{
     private By totalCustomers = By.xpath("//span[normalize-space()='Total Customers']/preceding-sibling::span");
 
 
-    private boolean checkElementExist(By by){
-        try {
-            WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(5));
-            wait.until(ExpectedConditions.visibilityOfElementLocated(by));
-            //driver.findElement(headerCustomerPage).isDisplayed(); //TH kh dùng wait thì 1 dòng này đc rồi
-            return true;
-        }catch (NoSuchElementException e){
-            return false; //trả false chứ đừng bắn lỗi hệ thống (test case failed)
-        }
-    }
-
     public void verifyNavigateToCustomerPage(){
-        Assert.assertTrue(checkElementExist(headerCustomerPage),"The customer header page not dissplay.");
+        Assert.assertTrue(WebUI.checkElementExist(headerCustomerPage),"The customer header page not dissplay.");
         Assert.assertEquals(WebUI.getElementText(headerCustomerPage),"Customers Summary", "The cusomer header page not match");
     }
 
@@ -110,7 +99,7 @@ public class CustomerPage extends BasePage{
     }
 
     public void verifyNavigateToCustomerDetailPage(){
-        Assert.assertTrue(checkElementExist(headerCustomerDetailPage),"The customer detail header page not dissplay.");
+        Assert.assertTrue(WebUI.checkElementExist(headerCustomerDetailPage),"The customer detail header page not dissplay.");
         Assert.assertEquals(WebUI.getElementText(headerCustomerDetailPage),"Profile", "The cusomer detail header page not match");
     }
 
@@ -140,7 +129,7 @@ public class CustomerPage extends BasePage{
     }
 
     public int getCustomersTotal(){
-        String totalString = driver.findElement(totalCustomers).getText();
+        String totalString = WebUI.getElementText(totalCustomers);
         System.out.println("getCustomersTotal: " + totalString);
         return Integer.parseInt(totalString);
     }

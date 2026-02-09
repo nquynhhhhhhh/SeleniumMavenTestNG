@@ -1,6 +1,5 @@
-package com.nhuquynh.Bai19_PageNavigation.pages;
+package com.nhuquynh.Bai22_23_HamChung_WebUI.pages;
 
-import com.nhuquynh.Bai17_PageObjectModel.pages.DashboardPage;
 import com.nhuquynh.Common.Locators;
 import com.nhuquynh.keywords.WebUI;
 import org.openqa.selenium.By;
@@ -47,6 +46,9 @@ public class LoginPage {
 
     public void loginCRM(String email, String password) { //chạy automation login, verify là 2 hàm trên
         WebUI.openURL("https://crm.anhtester.com/admin/authentication");
+        WebUI.waitForPageLoaded();
+        WebUI.clearText(inputEmail);
+        WebUI.clearText(inputPassword);
         WebUI.setText(inputEmail, email);
         WebUI.setText(inputPassword, password);
         WebUI.clickElement(buttonLogin);
@@ -72,8 +74,8 @@ public class LoginPage {
 
     public void verifyLoginFailWithNullFields() {
         Assert.assertTrue(driver.getCurrentUrl().contains("authentication"), "FAIL. Không còn ở trang Login");
-        Assert.assertTrue(driver.findElement(errorMessage1).isDisplayed(), "Error message 1 NOT displays");
-        Assert.assertTrue(driver.findElement(errorMessage2).isDisplayed(), "Error message 2 NOT displays");
+        Assert.assertTrue(WebUI.isElementDisplayed(errorMessage1), "Error message 1 NOT displays");
+        Assert.assertTrue(WebUI.isElementDisplayed(errorMessage2), "Error message 2 NOT displays");
 
         Assert.assertEquals(WebUI.getElementText(errorMessage1), "The Password field is required.", "Content of error massage 1 NOT match.");
         Assert.assertEquals(WebUI.getElementText(errorMessage2), "The Email Address field is required.", "Content of error massage 2 NOT match.");
@@ -88,10 +90,10 @@ public class LoginPage {
 
         boolean check = false;
 
-        //for ngoài là số lượng error message (dùng để duyệt tất cả element trả ra)
+        //for ngoài là số lượng error message
         for (int i = 1; i <= totalNullFields; i++) { //Biến i được dùng để xây dựng chuỗi XPath (dưới)=> mà XPath, chỉ mục (index) của các phần tử bắt đầu từ 1
             Assert.assertTrue(driver.findElement(By.xpath("(//div[contains(@class,'alert-danger')])[" + i + "]")).isDisplayed(), "Error message " + i + " NOT displays");
-            //for trong là số lượng message mình compare (dùng để compare giá trị trong ArrayList)
+            //for trong là số lượng message mình compare
             for (int j = 0; j < messageString.size(); j ++) {
                 if(WebUI.getElementText(By.xpath("(//div[contains(@class,'alert-danger')])[" + i + "]")).equals(messageString.get(j))){
                     check = true;
