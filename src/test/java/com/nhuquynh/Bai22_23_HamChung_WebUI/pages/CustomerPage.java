@@ -100,18 +100,18 @@ public class CustomerPage extends BasePage {
 
     public void verifyNavigateToCustomerDetailPage(){
         Assert.assertTrue(WebUI.checkElementExist(headerCustomerDetailPage),"The customer detail header page not dissplay.");
-        Assert.assertEquals(WebUI.getElementText(headerCustomerDetailPage),"Profile", "The cusomer detail header page not match");
+        WebUI.assertEquals(WebUI.getElementText(headerCustomerDetailPage),"Profile", "The cusomer detail header page not match");
     }
 
     public void verifyAddNewCustomerSuccess(String customerName){
         //verify alert message
 
         //verify data
-        Assert.assertEquals(driver.findElement(inputCompany).getAttribute("value"),customerName,"The Company Name not match");
-        Assert.assertEquals(driver.findElement(inputVAT).getAttribute("value"),"10","The VAT value not match");
-        Assert.assertEquals(driver.findElement(inputPhoneNumber).getAttribute("value"),"028yyzzxxx","The Phone Number not match");
-        Assert.assertEquals(driver.findElement(inputWebsite).getAttribute("value"),"vinhtuong.com.vn","The Webside not match");
-        Assert.assertEquals(driver.findElement(dropdownGroup).getAttribute("title"),"VIP","The Group not match");
+        WebUI.assertEquals(driver.findElement(inputCompany).getAttribute("value"),customerName,"The Company Name not match");
+        WebUI.assertEquals(driver.findElement(inputVAT).getAttribute("value"),"10","The VAT value not match");
+        WebUI.assertEquals(driver.findElement(inputPhoneNumber).getAttribute("value"),"028yyzzxxx","The Phone Number not match");
+        WebUI.assertEquals(driver.findElement(inputWebsite).getAttribute("value"),"vinhtuong.com.vn","The Webside not match");
+        WebUI.assertEquals(driver.findElement(dropdownGroup).getAttribute("title"),"VIP","The Group not match");
 
     }
 
@@ -121,7 +121,7 @@ public class CustomerPage extends BasePage {
         WebUI.sleep(2);
         String customerNameInTable = WebUI.getElementText(itemCustomerFirst);
         System.out.println(customerNameInTable);
-        Assert.assertEquals(customerNameInTable,customerName,"The customer name in table not match");
+        WebUI.assertEquals(customerNameInTable,customerName,"The customer name in table not match");
     }
 
     public void clickFirstItemCustomer(){

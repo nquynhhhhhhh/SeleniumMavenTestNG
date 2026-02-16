@@ -20,7 +20,7 @@ public class LoginTest extends BaseTest {
     public void loginFailWithEmailInvalid(){
         loginPage = new LoginPage(driver); //khởi tạo browser ở BaseTest trước rồi nên driver đã có giá trị => chỗ này cng sẽ mang giá trị
         loginPage.loginCRM("admin123@example.com","123456");
-        loginPage.verifyLoginFail();
+        loginPage.verifyLoginFail("Invalid email or password");
     }
 
     @Test

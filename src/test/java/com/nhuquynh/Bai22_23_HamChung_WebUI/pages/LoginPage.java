@@ -57,23 +57,25 @@ public class LoginPage {
     //hàm verify (dùng ở từng TC riêng)
     public void verifyLoginSuccess() {
         Assert.assertEquals(driver.findElement(By.xpath(Locators.menuDashboard)).getText(), "Dashboard", "FAIL. Vẫn đang ở trang Login");
-        Assert.assertFalse(driver.getCurrentUrl().contains("authentication"), "FAIL. Vẫn đang ở trang Login");
+        WebUI.assertNotContains(WebUI.getCurrentURL(),"authentication", "FAIL. Vẫn đang ở trang Login");
     }
 
     public void verifyLoginFail() { //đã truyền text r nên gọi hàm kh cần truyền text nữa nhưng chỉ sử dụng được 1 TH
-        Assert.assertTrue(driver.getCurrentUrl().contains("authentication"), "FAIL. Không còn ở trang Login");
+        WebUI.assertContains(WebUI.getCurrentURL(),"authentication", "FAIL. Vẫn đang ở trang Login");
         Assert.assertTrue(driver.findElement(errorMessage).isDisplayed(), "Error message NOT displays");
-        Assert.assertEquals(driver.findElement(errorMessage).getText(), "Invalid email or password", "Content of error massage NOT match.");
+        //Assert.assertEquals(driver.findElement(errorMessage).getText(), "Invalid email or password", "Content of error massage NOT match.");
+        WebUI.assertEquals(WebUI.getElementText(errorMessage),"Invalid email or password", "Content of error message NOT match.");
     }
     //giống cái trên => tính đa hình
     public void verifyLoginFail(String message) { //khi gọi hàm phải truyền text nhưng sử dụng được nhiều TH
-        Assert.assertTrue(driver.getCurrentUrl().contains("authentication"), "FAIL. Không còn ở trang Login");
+        WebUI.assertContains(WebUI.getCurrentURL(),"authentication", "FAIL. Vẫn đang ở trang Login");
         Assert.assertTrue(driver.findElement(errorMessage).isDisplayed(), "Error message NOT displays");
-        Assert.assertEquals(driver.findElement(errorMessage).getText(), message, "Content of error massage NOT match.");
+        //Assert.assertEquals(driver.findElement(errorMessage).getText(), message, "Content of error massage NOT match.");
+        WebUI.assertEquals(WebUI.getElementText(errorMessage),message, "Content of error massage NOT match.");
     }
 
     public void verifyLoginFailWithNullFields() {
-        Assert.assertTrue(driver.getCurrentUrl().contains("authentication"), "FAIL. Không còn ở trang Login");
+        WebUI.assertContains(WebUI.getCurrentURL(),"authentication", "FAIL. Vẫn đang ở trang Login");
         Assert.assertTrue(WebUI.isElementDisplayed(errorMessage1), "Error message 1 NOT displays");
         Assert.assertTrue(WebUI.isElementDisplayed(errorMessage2), "Error message 2 NOT displays");
 
