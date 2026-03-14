@@ -18,7 +18,7 @@ public class BaseTest {
         switch (browser){
             case "chrome":
                 driver = new ChromeDriver();
-                System.out.println("Khởi chạy trình duyệt Chrome");
+                System.out.println("Khởi chạy trình duyệt ChromeTest");
                 break;
             case "firefox":
                 driver = new FirefoxDriver();
@@ -26,7 +26,7 @@ public class BaseTest {
                 break;
             default:
                 driver = new ChromeDriver();
-                System.out.println("Khởi chạy trình duyệt Chrome mặc định");
+                System.out.println("Khởi chạy trình duyệt ChromeTest mặc định");
                 break;
         }
         driver.manage().window().maximize();

@@ -1,0 +1,18 @@
+<!DOCTYPE suite SYSTEM "http://testng.org/testng-1.0.dtd" >
+
+<suite name="Suite Demo Parallel Testing Combine" verbose="1" parallel="tests" thread-count="1">
+    <test name="Demo Parallel Testing By Classes 01" parallel="methods" thread-count="3">
+<!--        thread-count chỉ giới hạn cái parallel cho nên khi kết hợp classes với tests thì cần để trong test-->
+        <classes>
+            <class name="com.nhuquynh.Bai25_ParalleExecution.ChromeTest"/>
+            <class name="com.nhuquynh.Bai25_ParalleExecution.EdgeTest"/>
+        </classes>
+    </test>
+
+    <test name="Demo Parallel Testing By Classes 02" parallel="methods" thread-count="3">
+        <classes>
+            <class name="com.nhuquynh.Bai25_ParalleExecution.ChromeTest"/>
+            <class name="com.nhuquynh.Bai25_ParalleExecution.EdgeTest"/>
+        </classes>
+    </test>
+</suite>
